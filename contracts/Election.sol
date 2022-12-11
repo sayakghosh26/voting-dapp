@@ -15,6 +15,10 @@ contract Election {
     mapping(uint => Candidate) public candidates;
     //Store Candidates Count
     uint public candidatesCount;
+
+    event votedEvent(
+        uint indexed _candidateId
+    );
     //Constructor
     constructor() public {
         addCandidate("Candidate 1");
@@ -34,5 +38,7 @@ contract Election {
         voters[msg.sender] = true;
         //Update candidate vote count
         candidates[_candidateId].voteCount ++;
+        //Trigger voted event
+        emit votedEvent(_candidateId);
     }
 }
